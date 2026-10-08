@@ -3,6 +3,10 @@ from backend.services.weather_service import (
     get_weather
 )
 
+from backend.services.risk_engine import (
+    analyze_climate_risk
+)
+
 
 def climate_data_agent(city: str):
     location = get_location(city)
@@ -12,7 +16,12 @@ def climate_data_agent(city: str):
         location["longitude"]
     )
 
+    risk = analyze_climate_risk(
+        weather
+    )
+
     return {
         "location": location,
-        "weather": weather
+        "weather": weather,
+        "climate_risk": risk
     }
